@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Skills | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+  <style>
+    :root {
+      --primary: #04051f;
+      --secondary: #8f94fb;
+      --dark: #1a1a2e;
+      --light: #f5f5f7;
+      --gray: #777;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #04051f;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    
+    /* Header Navigation */
+    header {
+      background: #04051f;
+      backdrop-filter: blur(10px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    
+    nav ul li {
+      margin-left: 30px;
+    }
+    
+    nav ul li a {
+      text-decoration: none;
+      color: rgb(188, 187, 184);
+      font-weight: 600;
+      position: relative;
+      padding: 5px 0;
+      transition: color 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+      color: white
+    }
+    
+    nav ul li a.active {
+      color:rgb(159, 158, 157);
+    }
+    
+    nav ul li a.active::after,
+    nav ul li a:hover::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+    }
+    
+    .mobile-menu {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 20px 60px;
+    }
+    
+    /* Skills Header */
+    .skills-header {
+      text-align: center;
+      padding: 40px 0;
+    }
+    
+    .skills-header h1 {
+      font-size: 3.5rem;
+      background: rgb(234, 221, 195);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 15px;
+      animation: fadeInDown 1s ease;
+    }
+    
+    .skills-header p {
+      font-size: 1.2rem;
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      padding-bottom: 20px;
+    }
+    
+    .skills-header p::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+    
+    /* Skills Grid Layout */
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 40px 0;
+    }
+    
+    .skills-column {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .skills-category {
+      background: #4c606c;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .skills-category:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .skills-category h2 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--primary);
+      margin-bottom: 25px;
+      font-size: 1.5rem;
+    }
+    
+    .skills-category h2 i {
+      font-size: 1.8rem;
+    }
+    
+    /* Skill Item Styles */
+    .skill-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      animation: fadeIn 0.8s ease forwards;
+      opacity: 0;
+    }
+    
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    
+    .skill-icon {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--primary);
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    
+    .skill-content {
+      flex-grow: 1;
+    }
+    
+    .skill-name {
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .skill-percent {
+      color: var(--primary);
+      font-weight: bold;
+    }
+    
+    .skill-bar {
+      height: 8px;
+      background: #4c606c;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .skill-progress {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      width: 0;
+      transition: width 1.5s ease-in-out;
+    }
+    
+    /* Soft Skills Section */
+    .soft-skills {
+      background: #4c606c;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      margin-top: 30px;
+    }
+    
+    .soft-skills h2 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+    
+    .soft-skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .soft-skill {
+      text-align: center;
+      padding: 25px;
+      border-radius: 10px;
+      background: rgba(12, 12, 21, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .soft-skill:hover {
+      transform: translateY(-5px);
+      background: rgba(78, 84, 200, 0.1);
+    }
+    
+    .soft-skill i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .soft-skill h3 {
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 0 20px;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 30px;
+    }
+    
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--secondary);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .skills-container {
+        flex-direction: column;
+      }
+      
+      .skills-header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .soft-skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      nav ul {
+        display: none;
+      }
+      
+      .mobile-menu {
+        display: block;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+      }
+      
+      .footer-links {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .soft-skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">Portfolio</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="skills.html" class="active">Skills</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="certificates.html">Certificates</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://drive.google.com/file/d/1o_4aq5Qnj1XHgHfncevNHN_bUdBoPVx1/view?usp=drivesdk">Resume</a></li>
+          
+        </ul>
+      </nav>
+      <div class="mobile-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="skills-header">
+      <h1>My Skills</h1>
+      <p>These are the technologies and abilities I work with</p>
+    </div>
+    
+    <div class="skills-container">
+      <!-- Left Column -->
+      <div class="skills-column">
+        <div class="skills-category">
+          <h2><i class="fas fa-code"></i> Programming Languages</h2>
+          
+          <div class="skill-item" style="animation-delay: 0.1s">
+            <div class="skill-icon">
+              <i class="devicon-java-plain"></i>
+            </div>
+            <div class="skill-content">
+              <div class="skill-name">
+                <span>Java</span>
+                <span class="skill-percent">90%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 90%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skill-item" style="animation-delay: 0.2s">
+            <div class="skill-icon">
+              <i class="devicon-python-plain"></i>
+            </div>
+            <div class="skill-content">
+              <div class="skill-name">
+                <span>Python</span>
+                <span class="skill-percent">85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skill-item" style="animation-delay: 0.3s">
+            <div class="skill-icon">
+              <i class="devicon-javascript-plain"></i>
+            </div>
+            <div class="skill-content">
+              <div class="skill-name">
+                <span>JavaScript</span>
+                <span class="skill-percent">88%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 88%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="skills-category">
+          <h2><i class="fas fa-database"></i> Databases</h2>
+          
+          <div class="skill-item" style="animation-delay: 0.4s">
+            <div class="skill-icon">
+              <i class="devicon-mongodb-plain"></i>
+            </div>
+            <div class="skill-content">
+              <div class="skill-name">
+                <span>MongoDB</span>
+                <span class="skill-percent">75%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 75%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skill-item" style="animation-delay: 0.5s">
+            <div class="skill-icon">
+              <i class="devicon-mysql-plain"></i>
+            </div>
+            <div class="skill-content">
+              <div class="skill-name">
+                <span>MySQL</span>
+                <span class="skill-percent">78%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 78%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Column -->
+      <div class="skills-column">
+        <div class="skills-category">
+          <h2><i class="fas fa-laptop-code"></i> Frontend</h2>
+          
+          <div class="skill-item" style="animation-delay: 0.2s">
+            <div class="skill-icon">
+              <i class="devicon-html5-plain"></i>
+            </div>
+            <div class="skill-content">
+              <div class="skill-name">
+                <span>HTML5</span>
+                <span class="skill-percent">95%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 95%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skill-item" style="animation-delay: 0.3s">
+            <div class="skill-icon">
+              <i class="devicon-css3-plain"></i>
+            </div>
+            <div class="skill-content">
+              <div class="skill-name">
+                <span>CSS3</span>
+                <span class="skill-percent">92%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 92%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skill-item" style="animation-delay: 0.4s">
+            <div class="skill-icon">
+              <i class="devicon-react-plain"></i>
+            </div>
+            <div class="skill-content">
+              <div class="skill-name">
+                <span>React</span>
+                <span class="skill-percent">85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="skills-category">
+          <h2><i class="fas fa-server"></i> Backend & Tools</h2>
+          
+          <div class="skill-item" style="animation-delay: 0.5s">
+            <div class="skill-icon">
+              <i class="devicon-nodejs-plain"></i>
+            </div>
+            <div class="skill-content">
+              <div class="skill-name">
+                <span>Node.js</span>
+                <span class="skill-percent">80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skill-item" style="animation-delay: 0.6s">
+            <div class="skill-icon">
+              <i class="devicon-git-plain"></i>
+            </div>
+            <div class="skill-content">
+              <div class="skill-name">
+                <span>Git</span>
+                <span class="skill-percent">85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skill-item" style="animation-delay: 0.7s">
+            <div class="skill-icon">
+              <i class="devicon-vscode-plain"></i>
+            </div>
+            <div class="skill-content">
+              <div class="skill-name">
+                <span>VS Code</span>
+                <span class="skill-percent">95%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 95%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Soft Skills Section -->
+    <div class="soft-skills">
+      <h2>My Soft Skills</h2>
+      <div class="soft-skills-grid">
+        <div class="soft-skill" style="animation-delay: 0.2s">
+          <i class="fas fa-lightbulb"></i>
+          <h3>Problem Solving</h3>
+          <p>Analyzing challenges and making data-driven decisions</p>
+        </div>
+        
+        <div class="soft-skill" style="animation-delay: 0.3s">
+          <i class="fas fa-random"></i>
+          <h3>Adaptability</h3>
+          <p>Quickly adjusting to changing requirements</p>
+        </div>
+        
+        <div class="soft-skill" style="animation-delay: 0.4s">
+          <i class="fas fa-users"></i>
+          <h3>Teamwork</h3>
+          <p>Collaborating effectively with teams</p>
+        </div>
+        
+        <div class="soft-skill" style="animation-delay: 0.5s">
+          <i class="fas fa-comments"></i>
+          <h3>Communication</h3>
+          <p>Clear articulation of technical concepts</p>
+        </div>
+
+                <div class="soft-skill" style="animation-delay: 0.5s">
+        <i class="fas fa-paint-brush"></i>
+        <h3>Creativity</h3>
+        <p>Innovative thinking in design, development, and problem-solving</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-logo">Isha Shukla</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="skills.html">Skills</a>
+          <a href="projects.html">Projects</a>
+          <a href="resume.html">Resume</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2024 Isha Shukla. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Animate skill bars on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate skill items
+      const skillItems = document.querySelectorAll('.skill-item');
+      skillItems.forEach(item => {
+        item.style.opacity = '1';
+      });
+      
+      // Animate progress bars
+      setTimeout(() => {
+        const progressBars = document.querySelectorAll('.skill-progress');
+        progressBars.forEach(bar => {
+          bar.style.width = bar.style.width;
+        });
+      }, 300);
+      
+      // Animate soft skills
+      const softSkills = document.querySelectorAll('.soft-skill');
+      softSkills.forEach(skill => {
+        skill.style.animation = `fadeIn 0.5s ease ${skill.style.animationDelay || '0s'} forwards`;
+      });
+    });
+    
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu').addEventListener('click', function() {
+      document.querySelector('nav ul').classList.toggle('show');
+    });
+    
+    // Animation on scroll
+    window.addEventListener('scroll', function() {
+      const elements = document.querySelectorAll('.skill-item, .soft-skill');
+      const windowHeight = window.innerHeight;
+      
+      elements.forEach(el => {
+        const position = el.getBoundingClientRect().top;
+        
+        if (position < windowHeight - 100) {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
